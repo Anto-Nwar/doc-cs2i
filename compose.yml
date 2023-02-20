@@ -1,10 +1,10 @@
-name: test
 services:
   app:
-    #image:
+    #image: registry.gitlab.com/antoine.gueheneuc/doc-cs2i
+    image: ghcr.io/anto-nwar/doc-cs2i
     build:
-      context: .
-      dockerfile: Dockerfile 
+      context: ./
+      dockerfile: Dockerfile
     ports:
     - published: 8080
       target: 80
