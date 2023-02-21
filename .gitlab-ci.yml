@@ -24,7 +24,7 @@ Construction:       # This job runs in the build stage, which runs first.
 
 Verification:
   stage: vuln-scan
-  script:
+#  script:
   # Boite vide
   
 
