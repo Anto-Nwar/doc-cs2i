@@ -6,7 +6,11 @@ jobs:
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v3
-    - name: Write a multi-line message
+    - name: Print Env Vars
       run: |
-        echo This demo file shows a wild leo
-        echo very basic and easy-to-leo-ok
+        set
+        
+    - name: second task
+      run: | 
+        pwd
+        ls -l
