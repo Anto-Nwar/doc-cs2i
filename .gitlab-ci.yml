@@ -5,6 +5,7 @@ variables:
 stages:          # List of stages for jobs, and their order of execution
 #  - prebuild
   - build
+  - vuln-scan
   - push
 #  - deploiement
 
@@ -19,6 +20,13 @@ Construction:       # This job runs in the build stage, which runs first.
 
   # tags:
   # - runner-builder
+
+
+Verification:
+  stage: vuln-scan
+  script:
+  # Boite vide
+  
 
 Push:
   stage: push
