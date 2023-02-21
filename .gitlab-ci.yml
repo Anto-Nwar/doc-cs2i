@@ -32,7 +32,7 @@ Verification de la sécurité:
        -v /var/run/docker.sock:/var/run/docker.sock 
        -v trivy-cache:/root/.cache/  \
        aquasec/trivy --cache-dir /root/.cache/  image --scanners vuln --no-progress \
-        ${REGISTRY_URL}:${HTTPD_VERSION}-${TAG_PREFIX} | tee ${PWD}/scan-result/scan-${CI_PROJECT_NAME}.log
+        ${IMAGE_NAME}:build-temp | tee ${PWD}/scan-result/scan-${CI_PROJECT_NAME}.log
 
     # Resultat
     - |
