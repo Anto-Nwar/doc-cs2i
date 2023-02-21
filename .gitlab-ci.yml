@@ -1,0 +1,29 @@
+stages:
+  - prebuild        
+  - build
+#  - push
+#  - deploy
+
+Prebuild:
+  stage: deploy
+  sript:
+  - set
+
+
+Construction:      
+  stage: build
+  script:
+    - # docker compose build
+    - docker image build -t image:version
+  tags:
+  - runner-builder
+
+#Pousser:
+#  stage: push
+#  script:
+#    - docker compose push
+
+#Deploiement:
+#  stage: deploy
+#  script:
+#    - echo "Un jour, on d�ploie l'application"
