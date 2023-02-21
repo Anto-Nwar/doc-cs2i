@@ -26,9 +26,9 @@ Verification de la sécurité:
   stage: vuln-scan
   script:
     # Lancement du scan
-    - mkdir -p -m 2770 /scan-result
+    - mkdir -p -m 2770 ./scan-result
 
-    - docker container run --rm -v /var/run/docker.sock:/var/run/docker.sock -v trivy-cache:/root/.cache/ aquasec/trivy --cache-dir /root/.cache/  image --scanners vuln --no-progress ${IMAGE_NAME}:build-temp | tee ${PWD}/scan-result/scan-${CI_PROJECT_NAME}.log
+    - docker container run --rm -v ./var/run/docker.sock:/var/run/docker.sock -v trivy-cache:/root/.cache/ aquasec/trivy --cache-dir /root/.cache/  image --scanners vuln --no-progress ${IMAGE_NAME}:build-temp | tee ./scan-result/scan-${CI_PROJECT_NAME}.log
     # Resultat
     - |
       grep -q "CRITICAL: [^0]" /scan-result/scan-${CI_PROJECT_NAME}.log && \
@@ -38,7 +38,7 @@ Verification de la sécurité:
   artifacts:
     when: always
     paths:
-      - /scan-result
+      - ./scan-result
     expire_in: 1 week
 
 
