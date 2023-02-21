@@ -24,9 +24,28 @@ Construction:       # This job runs in the build stage, which runs first.
 
 Verification:
   stage: vuln-scan
-#  script:
-  # Boite vide
+  script:
+    # Lancement du scan
+    - mkdir -p -m 2770 ${PWD}/scan-result
+
+    - docker container run --rm \
+       -v /var/run/docker.sock:/var/run/docker.sock 
+       -v trivy-cache:/root/.cache/  \
+       aquasec/trivy --cache-dir /root/.cache/  image --scanners vuln --no-progress \
+        ${REGISTRY_URL}:${HTTPD_VERSION}-${TAG_PREFIX} | tee ${PWD}/scan-result/scan-${CI_PROJECT_NAME}.log
+
+    # Resultat
+    - grep -q "CRITICAL: [^0]" ${PWD}/scan-result/scan-${CI_PROJECT_NAME}.log && \
+      if [ ${STOP_IF_VULNERABILITY_FOUND:-0} != 0 ] ; then \
+        echo "Vulnérabilité CRITICAL détectée, arrêt du pipeline" && exit 1 ; fi 
   
+
+  artifacts:
+    when: always
+    paths:
+    - ${PWD}/scan-result
+    expire_in: 1 week
+
 
 Push:
   stage: push
